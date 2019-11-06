@@ -17,14 +17,10 @@ import android.widget.TextView;
 import com.felhr.usbserial.UsbSerialDevice;
 import com.felhr.usbserial.UsbSerialInterface;
 
-import java.util.HashMap;
-import java.util.Iterator;
-
 public class MainActivity extends AppCompatActivity {
 
-    // >adb tcp 55555
+    // >adb tcpip 55555
     // >adb connect 192.168.0.17
-    //
 
     private static final String ACTION_USB_PERMISSION =
             "com.android.example.USB_PERMISSION";
@@ -97,11 +93,12 @@ public class MainActivity extends AppCompatActivity {
         textView.setText(text);
     }
 
-    // https://github.com/felHR85/UsbSerial
-    // https://dev.to/minkovsky/working-on-my-iot-air-quality-monitoring-setup-40a5
-    // https://www.banggood.com/Geekcreit-Nova-PM-Sensor-SDS011-High-Precision-Laser-PM2_5-Air-Quality-Detection-Sensor-Module-Tester-p-1144246.html?utm_source=google&utm_medium=cpc_ods&utm_campaign=nancy-197s-sdsrm-bag-all-m-content&utm_content=nancy&gclid=CjwKCAjw0vTtBRBREiwA3URt7qq2SrHrKZjl5-T8WsEyMzuyt6P0df34Mdc5w4K-pcUH1BDTgAPctBoC2MIQAvD_BwE&cur_warehouse=CN
+    /*
+    https://github.com/felHR85/UsbSerial
+    https://dev.to/minkovsky/working-on-my-iot-air-quality-monitoring-setup-40a5
+    https://www.banggood.com/Geekcreit-Nova-PM-Sensor-SDS011-High-Precision-Laser-PM2_5-Air-Quality-Detection-Sensor-Module-Tester-p-1144246.html?utm_source=google&utm_medium=cpc_ods&utm_campaign=nancy-197s-sdsrm-bag-all-m-content&utm_content=nancy&gclid=CjwKCAjw0vTtBRBREiwA3URt7qq2SrHrKZjl5-T8WsEyMzuyt6P0df34Mdc5w4K-pcUH1BDTgAPctBoC2MIQAvD_BwE&cur_warehouse=CN
 
-/*
+
     Communication protocol:
 
     Serial communication protocol: 9600 8N1. (Rate of 9600, data bits 8, parity none, stop bits 1)
@@ -124,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
     Checksum: data 1 + data 2 + ...+ data 6
     PM2.5 data content: PM2.5 (ug/m3) = ((PM2.5 high byte*256 ) + PM2.5 low byte)/10
     PM10 data content: PM10 (ug/m3) = ((PM10 high byte*256 ) + PM10 low byte)/10
-*/
+    */
 
     public void connect(UsbDevice device) {
 

@@ -26,10 +26,6 @@
                 android:resource="@xml/device_filter" />
         </activity>
 
-        <receiver
-            android:name=".UsbReceiver"
-            android:enabled="true"
-            android:exported="true"></receiver>
     </application>
 
 </manifest>
