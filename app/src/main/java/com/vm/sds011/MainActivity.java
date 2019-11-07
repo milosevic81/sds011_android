@@ -12,10 +12,10 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
 
 import com.felhr.usbserial.UsbSerialDevice;
 import com.felhr.usbserial.UsbSerialInterface;
+import com.github.anastr.speedviewlib.SpeedView;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -82,17 +82,6 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-    private void appendText(String text) {
-        TextView textView = findViewById(R.id.text_view);
-        String t = textView.getText() + text;
-        textView.setText(t);
-    }
-
-    private void setText(String text) {
-        TextView textView = findViewById(R.id.text_view);
-        textView.setText(text);
-    }
-
     /*
     https://github.com/felHR85/UsbSerial
     https://dev.to/minkovsky/working-on-my-iot-air-quality-monitoring-setup-40a5
@@ -145,19 +134,22 @@ public class MainActivity extends AppCompatActivity {
         public void onReceivedData(final byte[] b)
         {
             if (b.length == 10) {
-                float pm25 = (b[2] + b[3] << 8)/10.0f;
-                float pm10 = (b[4] + b[5] << 8)/10.0f;
+                float pm25 = (256 * Math.abs(b[3]) + Math.abs(b[2])) / 10.0f;
+                float pm10 = (256 * Math.abs(b[5]) + Math.abs(b[4])) / 10.0f;
 
-                postAppend("pm25 " + pm25 + " pm10 " + pm10 + "\n");
+                postValues(pm25, pm10);
             }
         }
     };
 
-    private void postAppend(final String s) {
+    private void postValues(final float pm25, final float pm10) {
         mainHandler.post(new Runnable() {
             @Override
             public void run() {
-                appendText(s);
+                SpeedView speedView25 = findViewById(R.id.viewpm25);
+                speedView25.speedTo(pm25);
+                SpeedView speedView10 = findViewById(R.id.viewpm10);
+                speedView10.speedTo(pm10);
             }
         });
     }

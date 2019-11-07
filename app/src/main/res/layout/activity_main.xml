@@ -6,13 +6,43 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/text_view"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
+        <com.github.anastr.speedviewlib.SpeedView
+            android:id="@+id/viewpm25"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:sv_lowSpeedPercent="25"
+            app:sv_maxSpeed="200"
+            app:sv_mediumSpeedPercent="75"
+            app:sv_minSpeed="0"
+            app:sv_tickNumber="5"
+            app:sv_unit=" PM2.5 ug/m3"
+            app:sv_withTremble="false" />
+
+        <com.github.anastr.speedviewlib.SpeedView
+            android:id="@+id/viewpm10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:sv_lowSpeedPercent="25"
+            app:sv_maxSpeed="200"
+            app:sv_mediumSpeedPercent="75"
+            app:sv_minSpeed="0"
+            app:sv_tickNumber="5"
+            app:sv_unit=" PM10 ug/m3"
+            app:sv_withTremble="false" />
+
+    </LinearLayout>
 </android.support.constraint.ConstraintLayout>
