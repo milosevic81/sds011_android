@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     Communication protocol:
-
+    https://cdn.sparkfun.com/assets/parts/1/2/2/7/5/Laser_Dust_Sensor_Control_Protocol_V1.3.pdf
     Serial communication protocol: 9600 8N1. (Rate of 9600, data bits 8, parity none, stop bits 1)
     Serial report communication cycle: 1+0.5 seconds
     Data frame (10 bytes): message header + order+ data(6 bytes) + checksum + message trailer
@@ -124,6 +124,31 @@ public class MainActivity extends AppCompatActivity {
         serial.setParity(UsbSerialInterface.PARITY_NONE);
         serial.setStopBits(UsbSerialInterface.STOP_BITS_1);
         serial.setFlowControl(UsbSerialInterface. FLOW_CONTROL_OFF);
+
+        // We don't know state of SDS011 at this point. Force it to active reporting mode
+        // (no need to query it, it will write data to serial on its own)
+        byte[] setActiveReportingModeCommand =  new byte[] {
+                (byte)0xaa  /* head */,
+                (byte)0xb4  /* command 1 */,
+                (byte)0x02  /* Set data reporting mode */,
+                (byte)0x01  /* Set reporting mode */,
+                (byte)0x00  /* Active mode */,
+                (byte)0x00  /* data byte 4 */,
+                (byte)0x00  /* data byte 5 */,
+                (byte)0x00  /* data byte 6 */,
+                (byte)0x00  /* data byte 7 */,
+                (byte)0x00  /* data byte 8 */,
+                (byte)0x00  /* data byte 9 */,
+                (byte)0x00  /* data byte 10 */,
+                (byte)0x00  /* data byte 11 */,
+                (byte)0x00  /* data byte 12 */,
+                (byte)0x00  /* data byte 13 */,
+                (byte)0xff  /* data byte 14 (device id byte 1) */,
+                (byte)0xff  /* data byte 15 (device id byte 2) */,
+                (byte)0x01  /* checksum */,
+                (byte)0xab  /* tail */
+        };
+        serial.write(setActiveReportingModeCommand);
 
         serial.read(mCallback);
     }
